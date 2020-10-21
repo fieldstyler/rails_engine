@@ -1,95 +1,6 @@
 {
   "RSpec": {
     "coverage": {
-      "/Users/fieldstyler/turing/3mod/rails_engine_solo_project/rails_engine/spec/models/customer_spec.rb": {
-        "lines": [
-          1,
-          null,
-          1,
-          1,
-          2,
-          2,
-          2,
-          2,
-          null,
-          null
-        ]
-      },
-      "/Users/fieldstyler/turing/3mod/rails_engine_solo_project/rails_engine/spec/rails_helper.rb": {
-        "lines": [
-          null,
-          1,
-          1,
-          1,
-          null,
-          1,
-          1,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          1,
-          1,
-          null,
-          0,
-          0,
-          null,
-          1,
-          null,
-          1,
-          null,
-          null,
-          null,
-          null,
-          1,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          1,
-          null,
-          null,
-          1,
-          null,
-          null,
-          1,
-          1,
-          1,
-          1,
-          null,
-          null,
-          1,
-          null
-        ]
-      },
       "/Users/fieldstyler/turing/3mod/rails_engine_solo_project/rails_engine/config/environment.rb": {
         "lines": [
           null,
@@ -452,6 +363,6 @@
         ]
       }
     },
-    "timestamp": 1603147367
+    "timestamp": 1603147916
   }
 }

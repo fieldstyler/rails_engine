@@ -5,4 +5,14 @@ class Item < ApplicationRecord
     validates_presence_of :merchant_id
     validates_presence_of :created_at
     validates_presence_of :updated_at
+
+    def self.top_items(limit = 10)
+      select("items.*, SUM(invoice_items.unit_price*invoice_items.quantity) AS revenue")
+      .joins(:invoice_items, :transactions)
+      .group(:id)
+      .merge(Transaction.unscoped.successful)
+      .order("revenue DESC")
+      .limit(limit)
+
+    end
 end
