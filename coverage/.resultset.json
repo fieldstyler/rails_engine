@@ -261,9 +261,9 @@
         "lines": [
           1,
           1,
-          4,
-          4,
-          4,
+          8,
+          8,
+          8,
           null,
           null
         ]
@@ -296,25 +296,6 @@
           null
         ]
       },
-      "/Users/fieldstyler/turing/3mod/rails_engine_solo_project/rails_engine/app/models/merchant.rb": {
-        "lines": [
-          1,
-          1,
-          1,
-          1,
-          null,
-          1,
-          1,
-          null
-        ]
-      },
-      "/Users/fieldstyler/turing/3mod/rails_engine_solo_project/rails_engine/app/models/application_record.rb": {
-        "lines": [
-          1,
-          1,
-          null
-        ]
-      },
       "/Users/fieldstyler/turing/3mod/rails_engine_solo_project/rails_engine/app/models/item.rb": {
         "lines": [
           1,
@@ -340,6 +321,25 @@
           null
         ]
       },
+      "/Users/fieldstyler/turing/3mod/rails_engine_solo_project/rails_engine/app/models/application_record.rb": {
+        "lines": [
+          1,
+          1,
+          null
+        ]
+      },
+      "/Users/fieldstyler/turing/3mod/rails_engine_solo_project/rails_engine/app/models/merchant.rb": {
+        "lines": [
+          1,
+          1,
+          1,
+          1,
+          null,
+          1,
+          1,
+          null
+        ]
+      },
       "/Users/fieldstyler/turing/3mod/rails_engine_solo_project/rails_engine/app/controllers/api/v1/items_controller.rb": {
         "lines": [
           1,
@@ -347,6 +347,16 @@
           1,
           1,
           null,
+          null,
+          1,
+          1,
+          null,
+          null,
+          1,
+          1,
+          null,
+          null,
+          1,
           null,
           1,
           1,
@@ -415,6 +425,6 @@
         ]
       }
     },
-    "timestamp": 1603307929
+    "timestamp": 1603309605
   }
 }
