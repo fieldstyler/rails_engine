@@ -6,6 +6,9 @@ class Item < ApplicationRecord
     validates_presence_of :created_at
     validates_presence_of :updated_at
 
+    has_many :invoice_items
+    has_many :invoices, through: :invoice_items
+
     def self.top_items(limit = 10)
       select("items.*, SUM(invoice_items.unit_price*invoice_items.quantity) AS revenue")
       .joins(:invoice_items, :transactions)
