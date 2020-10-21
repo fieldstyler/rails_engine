@@ -247,12 +247,12 @@
         "lines": [
           1,
           1,
-          8,
-          8,
-          8,
           1,
-          8,
-          8,
+          1,
+          1,
+          1,
+          1,
+          1,
           null,
           null
         ]
@@ -261,9 +261,9 @@
         "lines": [
           1,
           1,
-          10,
-          10,
-          10,
+          8,
+          8,
+          8,
           null,
           null
         ]
@@ -289,42 +289,14 @@
           1,
           null,
           1,
-          1,
           null,
           null,
-          null,
-          null
-        ]
-      },
-      "/Users/fieldstyler/turing/3mod/rails_engine_solo_project/rails_engine/app/models/item.rb": {
-        "lines": [
-          1,
-          1,
-          1,
-          1,
-          1,
-          1,
-          1,
-          1,
-          1,
-          1,
           null,
           1,
           null,
           null,
           null,
           null,
-          null,
-          0,
-          null,
-          null,
-          null
-        ]
-      },
-      "/Users/fieldstyler/turing/3mod/rails_engine_solo_project/rails_engine/app/models/application_record.rb": {
-        "lines": [
-          1,
-          1,
           null
         ]
       },
@@ -340,7 +312,14 @@
           null
         ]
       },
-      "/Users/fieldstyler/turing/3mod/rails_engine_solo_project/rails_engine/app/controllers/api/v1/items_controller.rb": {
+      "/Users/fieldstyler/turing/3mod/rails_engine_solo_project/rails_engine/app/models/application_record.rb": {
+        "lines": [
+          1,
+          1,
+          null
+        ]
+      },
+      "/Users/fieldstyler/turing/3mod/rails_engine_solo_project/rails_engine/app/controllers/api/v1/merchants_controller.rb": {
         "lines": [
           1,
           null,
@@ -379,26 +358,11 @@
           null
         ]
       },
-      "/Users/fieldstyler/turing/3mod/rails_engine_solo_project/rails_engine/app/serializers/item_serializer.rb": {
+      "/Users/fieldstyler/turing/3mod/rails_engine_solo_project/rails_engine/app/serializers/merchant_serializer.rb": {
         "lines": [
           1,
           1,
           null,
-          1,
-          null,
-          1,
-          1,
-          null
-        ]
-      },
-      "/Users/fieldstyler/turing/3mod/rails_engine_solo_project/rails_engine/app/models/invoice_item.rb": {
-        "lines": [
-          1,
-          1,
-          1,
-          1,
-          1,
-          1,
           1,
           null,
           1,
@@ -431,8 +395,32 @@
           null,
           null
         ]
+      },
+      "/Users/fieldstyler/turing/3mod/rails_engine_solo_project/rails_engine/app/models/item.rb": {
+        "lines": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          null,
+          1,
+          null,
+          null,
+          null,
+          null,
+          null,
+          0,
+          null,
+          null
+        ]
       }
     },
-    "timestamp": 1603312103
+    "timestamp": 1603314279
   }
 }
