@@ -101,4 +101,15 @@ RSpec.describe 'Items API Request' do
     expect(new_item.name).to_not eq(name)
     expect(new_item.name).to eq('Blue Dog Bowl')
   end
+
+  it "can destroy an item record" do
+    item = create(:item)
+
+    expect(Item.count).to eq(1)
+
+    expect{ delete "/api/v1/items/#{item.id}" }.to change(Item, :count).by(-1)
+
+    expect(response).to be_successful
+    expect{Item.find(item.id)}.to raise_error(ActiveRecord::RecordNotFound)
+  end
 end
