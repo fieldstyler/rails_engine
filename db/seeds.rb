@@ -8,7 +8,7 @@
 require 'csv'
 
 Customer.destroy_all
-puts '1'
+puts 'Creating Customers...'
 CSV.foreach('./db/data/customers.csv', headers: true, header_converters: :symbol) do |row|
   Customer.create!({
     id: row[:id],
@@ -18,50 +18,10 @@ CSV.foreach('./db/data/customers.csv', headers: true, header_converters: :symbol
     updated_at: row[:updated_at]
     })
 end
-
-InvoiceItem.destroy_all
-puts '2'
-CSV.foreach('./db/data/invoice_items.csv', headers: true, header_converters: :symbol) do |row|
-  InvoiceItem.create!({
-    id: row[:id],
-    item_id: row[:item_id],
-    invoice_id: row[:invoice_id],
-    quantity: row[:quantity],
-    unit_price: row[:unit_price],
-    created_at: row[:created_at],
-    updated_at: row[:updated_at]
-    })
-end
-
-Invoice.destroy_all
-puts '3'
-CSV.foreach('./db/data/invoices.csv', headers: true, header_converters: :symbol) do |row|
-  Invoice.create!({
-    id: row[:id],
-    customer_id: row[:customer_id],
-    merchant_id: row[:merchant_id],
-    status: row[:status],
-    created_at: row[:created_at],
-    updated_at: row[:updated_at]
-    })
-end
-
-Item.destroy_all
-puts '4'
-CSV.foreach('./db/data/items.csv', headers: true, header_converters: :symbol) do |row|
-  Item.create!({
-    id: row[:id],
-    name: row[:name],
-    description: row[:description],
-    unit_price: row[:unit_price],
-    merchant_id: row[:merchant_id],
-    created_at: row[:created_at],
-    updated_at: row[:updated_at]
-    })
-end
+puts 'Customers Successfully Created'
 
 Merchant.destroy_all
-puts '5'
+puts 'Creating Merchants...'
 CSV.foreach('./db/data/merchants.csv', headers: true, header_converters: :symbol) do |row|
   Merchant.create!({
     id: row[:id],
@@ -70,10 +30,54 @@ CSV.foreach('./db/data/merchants.csv', headers: true, header_converters: :symbol
     updated_at: row[:updated_at]
     })
 end
+puts 'Merchants Successfully Created'
+
+Invoice.destroy_all
+puts 'Creating Invoices...'
+CSV.foreach('./db/data/invoices.csv', headers: true, header_converters: :symbol) do |row|
+  Invoice.create!({
+    id: row[:id],
+    customer_id: row[:customer_id],
+    merchant_id: row[:merchant_id],
+    status: row[:status],
+    created_at: row[:created_at],
+    updated_at: row[:updated_at]
+  })
+end
+puts 'Invoices Successfully Created'
+
+Item.destroy_all
+puts 'Creating Items...'
+CSV.foreach('./db/data/items.csv', headers: true, header_converters: :symbol) do |row|
+  Item.create!({
+    id: row[:id].to_s,
+    name: row[:name],
+    description: row[:description],
+    unit_price: row[:unit_price].to_f / 100,
+    merchant_id: row[:merchant_id],
+    created_at: row[:created_at],
+    updated_at: row[:updated_at]
+    })
+end
+puts 'Items Successfully Created'
+InvoiceItem.destroy_all
+puts 'Creating Invoice Items...'
+CSV.foreach('./db/data/invoice_items.csv', headers: true, header_converters: :symbol) do |row|
+  InvoiceItem.create!({
+    id: row[:id],
+    item_id: row[:item_id],
+    invoice_id: row[:invoice_id],
+    quantity: row[:quantity],
+    unit_price: row[:unit_price].to_f / 100,
+    created_at: row[:created_at],
+    updated_at: row[:updated_at]
+  })
+end
+puts 'Invoice Items Successfully Created'
 
 Transaction.destroy_all
-puts '6'
-x = CSV.foreach('./db/data/transactions.csv', headers: true, header_converters: :symbol) do |row|
+puts 'Creating Transactions...'
+CSV.foreach('./db/data/transactions.csv', headers: true, header_converters: :symbol) do |row|
   Transaction.create!({
     id: row[:id],
     invoice_id: row[:invoice_id],
@@ -82,5 +86,6 @@ x = CSV.foreach('./db/data/transactions.csv', headers: true, header_converters: 
     result: row[:result],
     created_at: row[:created_at],
     updated_at: row[:updated_at]
-    })
+  })
 end
+puts 'Transactions Successfully Created'
