@@ -4,4 +4,5 @@ class Merchant < ApplicationRecord
     validates_presence_of :updated_at
 
     has_many :invoices
+    has_many :items
 end

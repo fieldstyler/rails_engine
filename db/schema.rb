@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_18_221620) do
+ActiveRecord::Schema.define(version: 2020_10_21_185231) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,30 +20,36 @@ ActiveRecord::Schema.define(version: 2020_10_18_221620) do
     t.string "last_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "invoice_id"
+    t.index ["invoice_id"], name: "index_customers_on_invoice_id"
   end
 
   create_table "invoice_items", force: :cascade do |t|
-    t.string "item_id"
-    t.string "invoice_id"
+    t.bigint "invoice_id"
+    t.bigint "item_id"
     t.integer "quantity"
     t.float "unit_price"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string "created_at"
+    t.string "updated_at"
+    t.index ["invoice_id"], name: "index_invoice_items_on_invoice_id"
+    t.index ["item_id"], name: "index_invoice_items_on_item_id"
   end
 
   create_table "invoices", force: :cascade do |t|
-    t.string "customer_id"
-    t.string "merchant_id"
+    t.integer "customer_id"
+    t.integer "merchant_id"
     t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "transaction_id"
+    t.index ["transaction_id"], name: "index_invoices_on_transaction_id"
   end
 
   create_table "items", force: :cascade do |t|
     t.string "name"
     t.string "description"
     t.float "unit_price"
-    t.string "merchant_id"
+    t.integer "merchant_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -52,10 +58,14 @@ ActiveRecord::Schema.define(version: 2020_10_18_221620) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "invoice_id"
+    t.bigint "item_id"
+    t.index ["invoice_id"], name: "index_merchants_on_invoice_id"
+    t.index ["item_id"], name: "index_merchants_on_item_id"
   end
 
   create_table "transactions", force: :cascade do |t|
-    t.string "invoice_id"
+    t.integer "invoice_id"
     t.string "credit_card_number"
     t.string "credit_card_expiration_date"
     t.string "result"
@@ -63,4 +73,10 @@ ActiveRecord::Schema.define(version: 2020_10_18_221620) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "customers", "invoices"
+  add_foreign_key "invoice_items", "invoices"
+  add_foreign_key "invoice_items", "items"
+  add_foreign_key "invoices", "transactions"
+  add_foreign_key "merchants", "invoices"
+  add_foreign_key "merchants", "items"
 end
