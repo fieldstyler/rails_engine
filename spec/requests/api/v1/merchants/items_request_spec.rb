@@ -59,7 +59,7 @@ RSpec.describe 'Items API Request' do
 
     item_params = ({
       name: 'Sad Strange Chamaleon',
-      id: '1',
+      id: 1,
       description: 'Like a normal chamaleon, but sad and strange',
       unit_price: 324.24,
       merchant_id: merchant.id,
@@ -78,5 +78,27 @@ RSpec.describe 'Items API Request' do
       expect(created_item.created_at).to eq(item_params[:created_at])
       expect(created_item.updated_at).to eq(item_params[:updated_at])
       expect(created_item.merchant_id).to eq(item_params[:merchant_id])
+  end
+
+  it "can update an item record" do
+    merchant = create(:merchant)
+    item = merchant.items.create!({
+      name: 'Purple Dog Bowl',
+      id: 2,
+      description: 'Its purple and dogs can eat out of it',
+      unit_price: 12.25,
+      created_at: '04-06-2020 12:16:17 UTC',
+      updated_at: '04-06-2020 12:16:17 UTC'
+      })
+    name = Item.last.name
+    item_params = { name: 'Blue Dog Bowl' }
+    headers = {"CONTENT_TYPE" => 'application/json'}
+
+    patch "/api/v1/items/#{item.id}", headers: headers, params: JSON.generate(item_params)
+    new_item = Item.find_by(id: item.id)
+
+    expect(response).to be_successful
+    expect(new_item.name).to_not eq(name)
+    expect(new_item.name).to eq('Blue Dog Bowl')
   end
 end
