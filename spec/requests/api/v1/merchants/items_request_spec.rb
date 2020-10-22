@@ -118,7 +118,7 @@ RSpec.describe 'Items API Request' do
 
     expect(item.merchant).to be_a(Merchant)
 
-    get "/api/v1/items/#{item.id}/merchants"
+    get "/api/v1/items/#{item.id}/merchant"
 
     expect(response).to be_successful
 
@@ -131,5 +131,79 @@ RSpec.describe 'Items API Request' do
     expect(merchant).to have_key(:name)
     expect(merchant).to have_key(:created_at)
     expect(merchant).to have_key(:updated_at)
+  end
+
+  it 'can find an item by its id' do
+    item_object = create(:item)
+
+    get "/api/v1/items/find?id=#{item_object.id}"
+
+    expect(response).to be_successful
+
+    item_json = JSON.parse(response.body, symbolize_names: true)
+    item = item_json[:data][:attributes]
+    expect(item_object.id).to eq(item[:id])
+  end
+
+  it 'can find an item by its name' do
+    item_object = create(:item)
+
+    get "/api/v1/items/find?name=#{item_object.name}"
+
+    expect(response).to be_successful
+
+    item_json = JSON.parse(response.body, symbolize_names: true)
+    item = item_json[:data][:attributes]
+    expect(item_object.name).to eq(item[:name])
+  end
+
+  it 'can find an item by its description' do
+    item_object = create(:item)
+
+    get "/api/v1/items/find?description=#{item_object.description}"
+
+    expect(response).to be_successful
+
+    item_json = JSON.parse(response.body, symbolize_names: true)
+    item = item_json[:data][:attributes]
+    expect(item_object.description).to eq(item[:description])
+  end
+
+  it 'can find an item by its unit_price' do
+    item_object = create(:item)
+
+    get "/api/v1/items/find?unit_price=#{item_object.unit_price}"
+
+    expect(response).to be_successful
+
+    item_json = JSON.parse(response.body, symbolize_names: true)
+    item = item_json[:data][:attributes]
+    expect(item_object.unit_price).to eq(item[:unit_price])
+  end
+
+  xit 'can find an item by its created_at' do
+    item_object = create(:item)
+
+    get "/api/v1/items/find?created_at=#{item_object.created_at}"
+
+    expect(response).to be_successful
+
+    item_json = JSON.parse(response.body, symbolize_names: true)
+    item = item_json[:data][:attributes]
+
+    expect(item_object.created_at).to eq(item[:created_at])
+  end
+
+  xit 'can find an item by its updated_at' do
+    item_object = create(:item)
+
+    get "/api/v1/items/find?updated_at=#{item_object.updated_at}"
+
+    expect(response).to be_successful
+
+    item_json = JSON.parse(response.body, symbolize_names: true)
+    item = item_json[:data][:attributes]
+
+    expect(item_object.updated_at).to eq(item[:updated_at])
   end
 end

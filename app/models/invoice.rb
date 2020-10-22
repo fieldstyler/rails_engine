@@ -15,8 +15,9 @@ class Invoice < ApplicationRecord
       select("invoices.*, SUM(invoice_items.unit_price*invoice_items.quantity) AS revenue")
       .joins(:invoice_items, :transactions)
       .group(:id)
-      .merge(Transaction.unscoped.successful)
+      .where(result: "success")
       .order("revenue DESC")
       .limit(limit)
+      # .merge(Transaction.unscoped.successful)
     end
 end

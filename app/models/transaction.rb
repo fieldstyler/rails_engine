@@ -9,5 +9,5 @@ class Transaction < ApplicationRecord
 
     scope :successful, -> { where(result: "success")}
 
-    default_scope { order(:id)}
+    # default_scope { order(:id)}
 end
