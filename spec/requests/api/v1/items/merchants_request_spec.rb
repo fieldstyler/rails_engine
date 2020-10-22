@@ -90,7 +90,7 @@ RSpec.describe 'Merchants API Request' do
   end
 
   it "can import items related to merchant" do
-    merchants = create_list(:merchant, 2)
+    create_list(:merchant, 2)
     expect(Merchant.count).to eq(2)
     merchant = Merchant.first
     merchant2 = Merchant.last
@@ -106,7 +106,6 @@ RSpec.describe 'Merchants API Request' do
     expect(response).to be_successful
 
     items = JSON.parse(response.body, symbolize_names: true)
-    require "pry"; binding.pry
-    expect(items)
+    expect(items[:data].count).to eq(merchant.items.count)
   end
 end
