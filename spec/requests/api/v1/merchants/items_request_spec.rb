@@ -112,4 +112,24 @@ RSpec.describe 'Items API Request' do
     expect(response).to be_successful
     expect{Item.find(item.id)}.to raise_error(ActiveRecord::RecordNotFound)
   end
+
+  it 'can import the merchant associated with a specific item' do
+    item = create(:item)
+
+    expect(item.merchant).to be_a(Merchant)
+
+    get "/api/v1/items/#{item.id}/merchants"
+
+    expect(response).to be_successful
+
+    merchant_json = JSON.parse(response.body, symbolize_names: true)
+
+    merchant = merchant_json[:data][:attributes]
+
+    expect(merchant).to have_key(:id)
+    expect(item.merchant.id).to eq(merchant[:id])
+    expect(merchant).to have_key(:name)
+    expect(merchant).to have_key(:created_at)
+    expect(merchant).to have_key(:updated_at)
+  end
 end
