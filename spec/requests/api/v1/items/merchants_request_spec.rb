@@ -88,4 +88,25 @@ RSpec.describe 'Merchants API Request' do
     expect(response).to be_successful
     expect{Merchant.find(merchant.id)}.to raise_error(ActiveRecord::RecordNotFound)
   end
+
+  it "can import items related to merchant" do
+    merchants = create_list(:merchant, 2)
+    expect(Merchant.count).to eq(2)
+    merchant = Merchant.first
+    merchant2 = Merchant.last
+
+    create_list(:item, 5, merchant: merchant)
+    create_list(:item, 3, merchant: merchant2)
+
+    expect(merchant.items.count).to eq(5)
+    expect(merchant2.items.count).to eq(3)
+
+    get "/api/v1/merchants/#{merchant.id}/items"
+
+    expect(response).to be_successful
+
+    items = JSON.parse(response.body, symbolize_names: true)
+    require "pry"; binding.pry
+    expect(items)
+  end
 end
