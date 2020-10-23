@@ -211,7 +211,7 @@ RSpec.describe 'Items API Request' do
     item_object = create(:item, name: "Dog")
     item_object2 = create(:item, name: "Doggy Door")
     item_object3 = create(:item, name: "Cat House")
-    get "/api/v1/items/find_all?name=#{item_object.name}"
+    get "/api/v1/items/find_all?name=Dog"
 
     expect(response).to be_successful
 
@@ -219,6 +219,21 @@ RSpec.describe 'Items API Request' do
 
     item = item_json[:data]
 
+    expect(item.count).to eq(2)
+  end
+
+  it 'can find multiple items by its description' do
+    item_object = create(:item, description: "Brown")
+    item_object2 = create(:item, description: "Brownish")
+    item_object3 = create(:item, description: "Redish")
+    get "/api/v1/items/find_all?description=Brown"
+
+    expect(response).to be_successful
+
+    item_json = JSON.parse(response.body, symbolize_names: true)
+
+    item = item_json[:data]
+    require "pry"; binding.pry
     expect(item.count).to eq(2)
   end
 end
