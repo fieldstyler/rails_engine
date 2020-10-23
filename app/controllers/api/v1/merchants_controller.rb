@@ -18,6 +18,7 @@ class Api::V1::MerchantsController < ApplicationController
 
   def destroy
     Merchant.destroy(params[:id])
+    render status: 204
   end
 
   private

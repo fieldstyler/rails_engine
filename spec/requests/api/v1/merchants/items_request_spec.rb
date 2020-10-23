@@ -159,6 +159,7 @@ RSpec.describe 'Items API Request' do
 
   it 'can find an item by its description' do
     item_object = create(:item)
+    item_object2 = create(:item)
 
     get "/api/v1/items/find?description=#{item_object.description}"
 
@@ -167,6 +168,8 @@ RSpec.describe 'Items API Request' do
     item_json = JSON.parse(response.body, symbolize_names: true)
     item = item_json[:data][:attributes]
     expect(item_object.description).to eq(item[:description])
+
+    expect(item_json.count).to eq(1)
   end
 
   it 'can find an item by its unit_price' do
@@ -179,6 +182,7 @@ RSpec.describe 'Items API Request' do
     item_json = JSON.parse(response.body, symbolize_names: true)
     item = item_json[:data][:attributes]
     expect(item_object.unit_price).to eq(item[:unit_price])
+    expect(item_json.count).to eq(1)
   end
 
   xit 'can find an item by its created_at' do
@@ -233,7 +237,36 @@ RSpec.describe 'Items API Request' do
     item_json = JSON.parse(response.body, symbolize_names: true)
 
     item = item_json[:data]
-    require "pry"; binding.pry
+    expect(item.count).to eq(2)
+  end
+
+  it 'can find multiple items by its unit price' do
+    item_object = create(:item, unit_price: 123)
+    item_object2 = create(:item, unit_price: 234)
+    item_object3 = create(:item, unit_price: 234)
+    get "/api/v1/items/find_all?unit_price=234"
+
+    expect(response).to be_successful
+
+    item_json = JSON.parse(response.body, symbolize_names: true)
+
+    item = item_json[:data]
+    expect(item.count).to eq(2)
+  end
+
+  it 'can find multiple items by its merchant id' do
+    create(:merchant, id: 12)
+    create(:merchant, id: 23)
+    item_object = create(:item, merchant_id: 12)
+    item_object2 = create(:item, merchant_id: 23)
+    item_object3 = create(:item, merchant_id: 23)
+    get "/api/v1/items/find_all?merchant_id=23"
+
+    expect(response).to be_successful
+
+    item_json = JSON.parse(response.body, symbolize_names: true)
+
+    item = item_json[:data]
     expect(item.count).to eq(2)
   end
 end
