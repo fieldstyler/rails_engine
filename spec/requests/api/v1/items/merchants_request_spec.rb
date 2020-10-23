@@ -157,4 +157,49 @@ RSpec.describe 'Merchants API Request' do
     merchant = merchant_json[:data][:attributes]
     expect(merchant_object.updated_at).to eq(merchant[:updated_at])
   end
+
+  it 'can find multiple merchants by its name' do
+    merchant_object = create(:merchant, name: "Starbies")
+    merchant_object2 = create(:merchant, name: "Rockstar Bar")
+    merchant_object3 = create(:merchant, name: "Food N' Stuff")
+    get "/api/v1/merchants/find_all?name=Star"
+
+    expect(response).to be_successful
+
+    merchant_json = JSON.parse(response.body, symbolize_names: true)
+
+    merchant = merchant_json[:data]
+
+    expect(merchant.count).to eq(2)
+  end
+
+  xit 'can find multiple merchants by its created_at' do
+    merchant_object = create(:merchant)
+    merchant_object2 = create(:merchant, created_at: merchant_object.created_at)
+    merchant_object3 = create(:merchant)
+    get "/api/v1/merchants/find_all?created_at=#{merchant_object.created_at}"
+
+    expect(response).to be_successful
+
+    merchant_json = JSON.parse(response.body, symbolize_names: true)
+
+    merchant = merchant_json[:data]
+
+    expect(merchant.count).to eq(2)
+  end
+
+  xit 'can find multiple merchants by its updated_at' do
+    merchant_object = create(:merchant)
+    merchant_object2 = create(:merchant, created_at: merchant_object.updated_at)
+    merchant_object3 = create(:merchant)
+    get "/api/v1/merchants/find_all?updated_at=#{merchant_object.updated_at}"
+
+    expect(response).to be_successful
+
+    merchant_json = JSON.parse(response.body, symbolize_names: true)
+
+    merchant = merchant_json[:data]
+
+    expect(merchant.count).to eq(2)
+  end
 end
