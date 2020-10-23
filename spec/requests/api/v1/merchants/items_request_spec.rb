@@ -206,4 +206,19 @@ RSpec.describe 'Items API Request' do
 
     expect(item_object.updated_at).to eq(item[:updated_at])
   end
+
+  it 'can find multiple items by its name' do
+    item_object = create(:item, name: "Dog")
+    item_object2 = create(:item, name: "Doggy Door")
+    item_object3 = create(:item, name: "Cat House")
+    get "/api/v1/items/find_all?name=#{item_object.name}"
+
+    expect(response).to be_successful
+
+    item_json = JSON.parse(response.body, symbolize_names: true)
+
+    item = item_json[:data]
+
+    expect(item.count).to eq(2)
+  end
 end
