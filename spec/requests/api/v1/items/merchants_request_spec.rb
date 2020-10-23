@@ -108,4 +108,53 @@ RSpec.describe 'Merchants API Request' do
     items = JSON.parse(response.body, symbolize_names: true)
     expect(items[:data].count).to eq(merchant.items.count)
   end
+
+
+  it 'can find a merchant by its id' do
+    merchant_object = create(:merchant)
+
+    get "/api/v1/merchants/find?id=#{merchant_object.id}"
+
+    expect(response).to be_successful
+
+    merchant_json = JSON.parse(response.body, symbolize_names: true)
+    merchant = merchant_json[:data][:attributes]
+    expect(merchant_object.id).to eq(merchant[:id])
+  end
+
+  it 'can find a merchant by its name' do
+    merchant_object = create(:merchant)
+
+    get "/api/v1/merchants/find?name=#{merchant_object.name}"
+
+    expect(response).to be_successful
+
+    merchant_json = JSON.parse(response.body, symbolize_names: true)
+    merchant = merchant_json[:data][:attributes]
+    expect(merchant_object.name).to eq(merchant[:name])
+  end
+
+  xit 'can find a merchant by its created_at' do
+    merchant_object = create(:merchant)
+
+    get "/api/v1/merchants/find?created_at=#{merchant_object.created_at}"
+
+    expect(response).to be_successful
+
+    merchant_json = JSON.parse(response.body, symbolize_names: true)
+    merchant = merchant_json[:data][:attributes]
+    expect(merchant_object.created_at).to eq(merchant[:created_at])
+  end
+
+  xit 'can find a merchant by its updated_at' do
+    merchant_object = create(:merchant)
+
+    get "/api/v1/merchants/find?updated_at=#{merchant_object.updated_at}"
+
+    expect(response).to be_successful
+
+    merchant_json = JSON.parse(response.body, symbolize_names: true)
+    merchant = merchant_json[:data][:attributes]
+    expect(merchant_object.updated_at).to eq(merchant[:updated_at])
+  end
 end
