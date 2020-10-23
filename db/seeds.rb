@@ -6,7 +6,11 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 require 'csv'
-
+InvoiceItem.destroy_all
+Transaction.destroy_all
+Item.destroy_all
+Invoice.destroy_all
+Merchant.destroy_all
 Customer.destroy_all
 puts 'Creating Customers...'
 CSV.foreach('./db/data/customers.csv', headers: true, header_converters: :symbol) do |row|
@@ -20,7 +24,6 @@ CSV.foreach('./db/data/customers.csv', headers: true, header_converters: :symbol
 end
 puts 'Customers Successfully Created'
 
-Merchant.destroy_all
 puts 'Creating Merchants...'
 CSV.foreach('./db/data/merchants.csv', headers: true, header_converters: :symbol) do |row|
   Merchant.create!({
@@ -32,7 +35,6 @@ CSV.foreach('./db/data/merchants.csv', headers: true, header_converters: :symbol
 end
 puts 'Merchants Successfully Created'
 
-Invoice.destroy_all
 puts 'Creating Invoices...'
 CSV.foreach('./db/data/invoices.csv', headers: true, header_converters: :symbol) do |row|
   Invoice.create!({
@@ -46,7 +48,6 @@ CSV.foreach('./db/data/invoices.csv', headers: true, header_converters: :symbol)
 end
 puts 'Invoices Successfully Created'
 
-Item.destroy_all
 puts 'Creating Items...'
 CSV.foreach('./db/data/items.csv', headers: true, header_converters: :symbol) do |row|
   Item.create!({
@@ -60,7 +61,6 @@ CSV.foreach('./db/data/items.csv', headers: true, header_converters: :symbol) do
     })
 end
 puts 'Items Successfully Created'
-InvoiceItem.destroy_all
 puts 'Creating Invoice Items...'
 CSV.foreach('./db/data/invoice_items.csv', headers: true, header_converters: :symbol) do |row|
   InvoiceItem.create!({
@@ -75,7 +75,6 @@ CSV.foreach('./db/data/invoice_items.csv', headers: true, header_converters: :sy
 end
 puts 'Invoice Items Successfully Created'
 
-Transaction.destroy_all
 puts 'Creating Transactions...'
 CSV.foreach('./db/data/transactions.csv', headers: true, header_converters: :symbol) do |row|
   Transaction.create!({
@@ -89,3 +88,7 @@ CSV.foreach('./db/data/transactions.csv', headers: true, header_converters: :sym
   })
 end
 puts 'Transactions Successfully Created'
+
+ActiveRecord::Base.connection.tables.each do |t|
+  ActiveRecord::Base.connection.reset_pk_sequence!(t)
+end
